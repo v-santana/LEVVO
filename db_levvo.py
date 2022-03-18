@@ -64,6 +64,11 @@ def lerCliente(id):
    for cliente in db_session.query(Cliente).filter_by(id=id):
       return cliente
 
+def lerClienteEmail(email):
+   for cliente in db_session.query(Cliente).filter_by(email=email):
+      return cliente
+
+
 def editarNomeCliente(id,novoNome):
    cliente = db_session.query(Cliente).filter(Cliente.id == id).one()
    cliente.nome = novoNome
