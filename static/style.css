@@ -1,0 +1,83 @@
+body {
+    background: #0189ff url("background.jpg") repeat;
+    background-size: 100%;
+    font-size: 80%;
+    height: 100%;
+    display: grid;
+  }
+  /* Container externo formulário */
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+/* Container formulário */
+.container-form{
+    width: 300px;
+    height: 500px;
+
+}
+
+/*  formulário */
+form{
+    border-radius: 10px 10px 10px 10px !important;
+    border: solid white !important;
+}
+
+/* Labels do form */
+.label-user{
+    margin-top: 5vmin;
+}
+
+.label-password{
+    margin-top: 2vmin;
+}
+
+
+.form-label{
+    color: #014179;
+}
+
+
+/* Inputs do form em geral */
+input{
+    border-top:none !important;
+    border-left:none !important;
+    border-right:none !important;
+    border-bottom:solid 0.1px #01417985 !important;
+}
+
+input:focus, input:hover{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    border-bottom:solid 1px #0189ff !important;
+    background-color: #0188ff0c;
+}
+
+ 
+/* Botão login */
+.button-login{
+    margin-top: 3vmin;
+    margin-bottom: 0vmin !important;
+    background-color: #f1f7fd !important;
+    color: #0189ff;
+}
+
+.button-login:hover{
+    background-color: #0189ff !important;
+}
+
+/* Icone para visualizar input senha */
+.far{
+    color: #014179 !important;
+}
+
+/* Span para alertar falha no login */
+.span-alert{
+    color: rgb(224, 8, 8) !important;
+    border: none !important;
+    margin-top: 0% !important;
+}
