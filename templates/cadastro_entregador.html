@@ -6,7 +6,7 @@
     <div class="container">
         <div class="container-form">
         <!-- formulário -->
-           <form method="POST" class="form-control shadow-lg p-3 mb-5 bg-body rounded" onSubmit="window.location.href='/login/cliente'">
+           <form method="POST" class="form-control shadow-lg p-3 mb-5 bg-body rounded" onSubmit="window.location.href='/login/entregador'">
             <!-- Nome Linha -->
             <div class="mb-3">
                 <label for="nomeInput" class="label-nome form-label">Nome</label>
@@ -22,6 +22,12 @@
               <label for="telefoneInput" class="label-telefone form-label">Telefone</label>
               <input type="telefone" name="telefone" maxlength="11" id="telefoneInput" required>
             </div>
+            <!-- Placa Linha -->
+            <div class="mb-3">
+              <label for="placaInput" class="label-placa form-label">Placa</label>
+              <input type="text" name="placa" class="input-placa" maxlength="7" id="placaInput" required>
+            </div>
+
               <!-- Senha Linha -->
               <div class="mb-3">
                 <label for="inputPassword" class="label-password form-label">Senha</label>

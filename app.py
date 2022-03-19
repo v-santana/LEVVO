@@ -13,7 +13,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 def index():
     return redirect('/login')
 
-@app.route("/userpick")
+@app.route("/login")
 def userpickn():
     session.clear()
     #Inicia validação somente se for enviado um post
@@ -24,15 +24,18 @@ def userpickn():
 @app.route("/login/cliente", methods=['POST','GET'])
 def loginCliente():
     session.clear()
+    session['TIPO_USUARIO'] = 'cliente'
     #Inicia validação somente se for enviado um post
     if request.method == "POST":
         email = request.form['email']
         user = lerClienteEmail(email)
-        if email == user.email and request.form['password'] == user.senha:
-            session['EMAIL'] = email
-            session['NOME'] = user.nome
-            session['TIPO_USUARIO'] = 'CLIENTE'
-            return redirect("/home")
+        if user is not None:
+            if email == user.email and request.form['password'] == user.senha:
+                session['EMAIL'] = email
+                session['NOME'] = user.nome
+                return redirect("/home")
+            else:
+                return render_template('index.html',mensagem="Usuário ou senha incorretos. Por favor, tente outra vez.")
         else:
             return render_template('index.html',mensagem="Usuário ou senha incorretos. Por favor, tente outra vez.")
     return render_template('index.html', mensagem="")
@@ -41,15 +44,19 @@ def loginCliente():
 @app.route("/login/entregador", methods=['POST','GET'])
 def loginEntregador():
     session.clear()
+    session['TIPO_USUARIO'] = 'entregador'
     #Inicia validação somente se for enviado um post
     if request.method == "POST":
         email = request.form['email']
         user = lerEntregadorEmail(email)
-        if email == user.email and request.form['password'] == user.senha:
-            session['EMAIL'] = email
-            session['NOME'] = user.nome
-            session['TIPO_USUARIO'] = 'ENTREGADOR'
-            return redirect("/home")
+        if user is not None:
+            if email == user.email and request.form['password'] == user.senha:
+                session['EMAIL'] = email
+                session['NOME'] = user.nome
+                return redirect("/home")
+            else:
+                return render_template('index.html',mensagem="Usuário ou senha incorretos. Por favor, tente outra vez.")
+   
         else:
             return render_template('index.html',mensagem="Usuário ou senha incorretos. Por favor, tente outra vez.")
     return render_template('index.html', mensagem="")
@@ -66,9 +73,21 @@ def home():
 
 
 
-@app.route("/cadastro/<entidade>")
-def cadastroEntidade(entidade):
-    return f"<h1>{entidade}<h1>"
+@app.route("/cadastro/cliente", methods=['POST','GET'])
+def cadastroCliente():
+    session.clear()
+    #Inicia validação somente se for enviado um post
+    if request.method == "POST":
+        criarCliente(request.form['nome'],request.form['email'],request.form['password'],request.form['telefone'])
+    return render_template("cadastro_cliente.html")
+
+@app.route("/cadastro/entregador", methods=['POST','GET'])
+def cadastroEntregador():
+    session.clear()
+    #Inicia validação somente se for enviado um post
+    if request.method == "POST":
+        criarEntregador(request.form['nome'],request.form['email'],request.form['password'],request.form['telefone'],request.form['placa'].upper())
+    return render_template("cadastro_entregador.html")
 
 
 
