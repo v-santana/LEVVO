@@ -13,8 +13,8 @@ app.config['SECRET_KEY'] = SECRET_KEY
 def index():
     return redirect('/login')
 
-@app.route("/login")
-def login():
+@app.route("/userpick")
+def userpickn():
     session.clear()
     #Inicia validação somente se for enviado um post
     return render_template('userpick.html')
