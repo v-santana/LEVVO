@@ -10,6 +10,19 @@ SECRET_KEY = 'LEVAMOSATEVOCE!@#$@!(%&ssaas'
 app.config['SECRET_KEY'] = SECRET_KEY
 
 
+########### funções para cadastro de entrega
+
+def criaDicionarioEntrega(endereco,bairro,uf,cidade,cep):
+    dicionarioEntrega = {}
+    dicionarioEntrega['endereco'],dicionarioEntrega['bairro'],dicionarioEntrega['uf'],dicionarioEntrega['cidade'],dicionarioEntrega['cep'] = endereco,bairro,uf,cidade,cep
+    return dicionarioEntrega
+
+def cadastrarEntrega(dicEnderecoColeta,dicEnderecoEntrega,descricao):
+    enderecoColeta = criarEndereco(dicEnderecoColeta['endereco'],dicEnderecoColeta['bairro'],dicEnderecoColeta['uf'],dicEnderecoColeta['cidade'],dicEnderecoColeta['cep'])
+    enderecoEntrega = criarEndereco(dicEnderecoEntrega['endereco'],dicEnderecoEntrega['bairro'],dicEnderecoEntrega['uf'],dicEnderecoEntrega['cidade'],dicEnderecoEntrega['cep'])
+    entrega = criarEntrega(descricao,enderecoColeta.id,enderecoEntrega.id)
+    return entrega
+
 @app.route("/")
 def index():
     return redirect('/login')

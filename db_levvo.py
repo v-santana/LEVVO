@@ -144,6 +144,7 @@ def criarEntrega(descricao,id_endereco_coleta,id_endereco_final):
    db_session.commit()
    return entrega
 
+
 def lerEntrega(id):
    for entrega in db_session.query(Entrega).filter_by(id=id):
       return entrega
