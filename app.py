@@ -18,10 +18,10 @@ def criaDicionarioEntrega(endereco,bairro,uf,cidade,cep):
     return dicionarioEntrega
 
 
-def cadastrarEntrega(dicEnderecoColeta,dicEnderecoEntrega,descricao):
+def cadastrarEntrega(dicEnderecoColeta,dicEnderecoEntrega,descricao,id_cliente):
     enderecoColeta = criarEndereco(dicEnderecoColeta['endereco'],dicEnderecoColeta['bairro'],dicEnderecoColeta['uf'],dicEnderecoColeta['cidade'],dicEnderecoColeta['cep'])
     enderecoEntrega = criarEndereco(dicEnderecoEntrega['endereco'],dicEnderecoEntrega['bairro'],dicEnderecoEntrega['uf'],dicEnderecoEntrega['cidade'],dicEnderecoEntrega['cep'])
-    entrega = criarEntrega(descricao,enderecoColeta.id,enderecoEntrega.id)
+    entrega = criarEntrega(descricao,enderecoColeta.id,enderecoEntrega.id,id_cliente)
     return entrega
 
 @app.route("/")
@@ -48,6 +48,7 @@ def loginCliente():
             if email == user.email and request.form['password'] == user.senha:
                 session['EMAIL'] = email
                 session['NOME'] = user.nome
+                session['ID'] = user.id
                 return redirect("/home")
             else:
                 return render_template('index.html',mensagem="Usuário ou senha incorretos. Por favor, tente outra vez.")
@@ -68,6 +69,7 @@ def loginEntregador():
             if email == user.email and request.form['password'] == user.senha:
                 session['EMAIL'] = email
                 session['NOME'] = user.nome
+                session['ID'] = user.id
                 return redirect("/home")
             else:
                 return render_template('index.html',mensagem="Usuário ou senha incorretos. Por favor, tente outra vez.")
@@ -81,11 +83,12 @@ def loginEntregador():
 def home():
     #Se estiver logado exibe mensagem e nome de usuário, senão exibe acesso não permitido
     if 'NOME' in session:
+        print(session)
         if request.method == "POST":
             dictEnderecoColeta = criaDicionarioEntrega(request.form['enderecoColeta'],request.form['bairroColeta'],request.form['ufColeta'],request.form['cidadeColeta'],request.form['cepColeta'])
             dictEnderecoEntrega = criaDicionarioEntrega(request.form['enderecoEntrega'],request.form['bairroEntrega'],request.form['ufEntrega'],request.form['cidadeEntrega'],request.form['cepEntrega'])
-            cadastrarEntrega(dictEnderecoColeta,dictEnderecoEntrega,"Observação")
-        return render_template('home.html',mensagem=f"Bem vindo ao Levvo, {session['NOME'].split(' ')[0]}")
+            cadastrarEntrega(dictEnderecoColeta,dictEnderecoEntrega,request.form['observacao'],session['ID'])
+        return render_template('home.html',mensagem=f"Bem vindo ao Levvo, {session['NOME'].split(' ')[0]}", entregas = listarEntregas())
     else:
         return render_template('home.html',mensagem="Acesso não permitido")
 

@@ -1,7 +1,7 @@
 import email
 from sqlalchemy import create_engine, delete
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, Integer, String, insert, delete
+from sqlalchemy import Column, Integer, String, insert, delete,select
 import pymysql
 from sqlalchemy.ext.declarative import declarative_base
    
@@ -36,6 +36,7 @@ class Entrega(Base):
    descricao = Column(String(200))
    id_endereco_coleta = Column(Integer)
    id_endereco_final = Column(Integer)
+   id_cliente = Column(Integer)
    
 
 class Endereco(Base):
@@ -138,12 +139,17 @@ def editarTelefoneEntregador(id,novoTelefone):
 
 ############ ENTREGA #################
 
-def criarEntrega(descricao,id_endereco_coleta,id_endereco_final):
-   entrega = Entrega(descricao = descricao,id_endereco_coleta = id_endereco_coleta,id_endereco_final = id_endereco_final)
+def criarEntrega(descricao,id_endereco_coleta,id_endereco_final,id_cliente):
+   entrega = Entrega(descricao = descricao,id_endereco_coleta = id_endereco_coleta,id_endereco_final = id_endereco_final,id_cliente=id_cliente)
    db_session.add(entrega)
    db_session.commit()
    return entrega
 
+def listarEntregas():
+   entregas = []
+   for entrega in db_session.query(Entrega):
+         entregas.append(entrega)
+   return entregas
 
 def lerEntrega(id):
    for entrega in db_session.query(Entrega).filter_by(id=id):

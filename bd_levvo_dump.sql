@@ -11,6 +11,53 @@
 -- ---------------------------------------------------------
 
 
+-- CREATE TABLE "tb_cliente" -----------------------------------
+CREATE TABLE `tb_cliente`( 
+	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
+	`nome` VarChar( 100 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`email` VarChar( 50 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`senha` VarChar( 50 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`telefone` VarChar( 20 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	PRIMARY KEY ( `id` ) )
+CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+ENGINE = InnoDB
+AUTO_INCREMENT = 15;
+-- -------------------------------------------------------------
+
+
+-- CREATE TABLE "tb_entregador" --------------------------------
+CREATE TABLE `tb_entregador`( 
+	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
+	`nome` VarChar( 100 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`email` VarChar( 50 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`senha` VarChar( 50 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`telefone` VarChar( 20 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	`placa` VarChar( 10 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+	PRIMARY KEY ( `id` ) )
+CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+ENGINE = InnoDB
+AUTO_INCREMENT = 3;
+-- -------------------------------------------------------------
+
+
+-- CREATE TABLE "tb_endereco" ----------------------------------
+CREATE TABLE `tb_endereco`( 
+	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
+	`bairro` VarChar( 100 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	`uf` VarChar( 2 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	`cidade` VarChar( 100 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	`endereco` VarChar( 300 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	`cep` VarChar( 10 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+	PRIMARY KEY ( `id` ) )
+CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+ENGINE = InnoDB
+AUTO_INCREMENT = 3;
+-- -------------------------------------------------------------
+
+
 -- CREATE TABLE "tb_entrega" -----------------------------------
 CREATE TABLE `tb_entrega`( 
 	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
@@ -35,74 +82,21 @@ CREATE INDEX `fk_tb_entrega_tb_endereco_endereco_entrega` USING BTREE ON `tb_ent
 -- -------------------------------------------------------------
 
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
--- ---------------------------------------------------------
-
-
--- CREATE TABLE "tb_cliente" -----------------------------------
-CREATE TABLE `tb_cliente`( 
-	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
-	`nome` VarChar( 100 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-	`email` VarChar( 50 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-	`senha` VarChar( 50 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-	`telefone` VarChar( 20 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-	PRIMARY KEY ( `id` ) )
-CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci
-ENGINE = InnoDB
-AUTO_INCREMENT = 15;
+-- CREATE LINK "fk_tb_entrega_tb_endereco_endereco_coleta" -----
+ALTER TABLE `tb_entrega`
+	ADD CONSTRAINT `fk_tb_entrega_tb_endereco_endereco_coleta` FOREIGN KEY ( `id_endereco_coleta` )
+	REFERENCES `tb_endereco`( `id` )
+	ON DELETE Restrict
+	ON UPDATE Restrict;
 -- -------------------------------------------------------------
 
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
--- ---------------------------------------------------------
-
-
--- CREATE TABLE "tb_entregador" --------------------------------
-CREATE TABLE `tb_entregador`( 
-	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
-	`nome` VarChar( 100 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-	`email` VarChar( 50 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-	`senha` VarChar( 50 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-	`telefone` VarChar( 20 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-	`placa` VarChar( 10 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-	PRIMARY KEY ( `id` ) )
-CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci
-ENGINE = InnoDB
-AUTO_INCREMENT = 3;
--- -------------------------------------------------------------
-
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
--- ---------------------------------------------------------
-
-
--- CREATE TABLE "tb_endereco" ----------------------------------
-CREATE TABLE `tb_endereco`( 
-	`id` Int( 11 ) AUTO_INCREMENT NOT NULL,
-	`bairro` VarChar( 100 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-	`uf` VarChar( 2 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-	`cidade` VarChar( 100 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-	`endereco` VarChar( 300 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-	`cep` VarChar( 10 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-	PRIMARY KEY ( `id` ) )
-CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci
-ENGINE = InnoDB
-AUTO_INCREMENT = 3;
+-- CREATE LINK "fk_tb_entrega_tb_endereco_endereco_entrega" ----
+ALTER TABLE `tb_entrega`
+	ADD CONSTRAINT `fk_tb_entrega_tb_endereco_endereco_entrega` FOREIGN KEY ( `id_endereco_final` )
+	REFERENCES `tb_endereco`( `id` )
+	ON DELETE Restrict
+	ON UPDATE Restrict;
 -- -------------------------------------------------------------
 
 
