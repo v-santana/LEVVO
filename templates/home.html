@@ -6,7 +6,9 @@
         <h3 style="color:white">{{mensagem}}. <a href="/login" style="color:black">Retornar a tela de login</a></h3>
       </div>
     <div class="item">
-      <a type="button" class="btn button-login form-control btn-danger mb-3 text-userpick button-home">Solicitar uma entrega</a>
+      <a type="button" class="btn button-login form-control btn-danger mb-3 text-userpick button-home" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Solicitar uma entrega</a>
     </div>
+{% include 'modal_entrega.html' %}
   </body>
+
 {% include 'footer.html'%}

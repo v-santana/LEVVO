@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Flask, make_response, request, render_template, redirect, send_from_directory, session
 from db_levvo import lerClienteEmail
 from db_levvo import *
@@ -62,10 +63,12 @@ def loginEntregador():
     return render_template('index.html', mensagem="")
 
 #Home (somente logado)
-@app.route("/home")
+@app.route("/home", methods=['GET','POST'])
 def home():
     #Se estiver logado exibe mensagem e nome de usuário, senão exibe acesso não permitido
     if 'NOME' in session:
+        if request.method == "POST":
+            print(request.form)
         return render_template('home.html',mensagem=f"Bem vindo ao Levvo, {session['NOME'].split(' ')[0]}")
     else:
         return render_template('home.html',mensagem="Acesso não permitido")
