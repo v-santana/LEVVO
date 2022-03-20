@@ -15,11 +15,15 @@ body {
     align-items: center;
 }
 
+.home-text {
+    color: #FF5757 !important;
+}
+
 .item{
     width: 100vw;
-    height: 100vh;
+    height: 40vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
