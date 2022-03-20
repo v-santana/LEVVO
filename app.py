@@ -17,6 +17,7 @@ def criaDicionarioEntrega(endereco,bairro,uf,cidade,cep):
     dicionarioEntrega['endereco'],dicionarioEntrega['bairro'],dicionarioEntrega['uf'],dicionarioEntrega['cidade'],dicionarioEntrega['cep'] = endereco,bairro,uf,cidade,cep
     return dicionarioEntrega
 
+
 def cadastrarEntrega(dicEnderecoColeta,dicEnderecoEntrega,descricao):
     enderecoColeta = criarEndereco(dicEnderecoColeta['endereco'],dicEnderecoColeta['bairro'],dicEnderecoColeta['uf'],dicEnderecoColeta['cidade'],dicEnderecoColeta['cep'])
     enderecoEntrega = criarEndereco(dicEnderecoEntrega['endereco'],dicEnderecoEntrega['bairro'],dicEnderecoEntrega['uf'],dicEnderecoEntrega['cidade'],dicEnderecoEntrega['cep'])
@@ -81,7 +82,9 @@ def home():
     #Se estiver logado exibe mensagem e nome de usuário, senão exibe acesso não permitido
     if 'NOME' in session:
         if request.method == "POST":
-            print(request.form)
+            dictEnderecoColeta = criaDicionarioEntrega(request.form['enderecoColeta'],request.form['bairroColeta'],request.form['ufColeta'],request.form['cidadeColeta'],request.form['cepColeta'])
+            dictEnderecoEntrega = criaDicionarioEntrega(request.form['enderecoEntrega'],request.form['bairroEntrega'],request.form['ufEntrega'],request.form['cidadeEntrega'],request.form['cepEntrega'])
+            cadastrarEntrega(dictEnderecoColeta,dictEnderecoEntrega,"Observação")
         return render_template('home.html',mensagem=f"Bem vindo ao Levvo, {session['NOME'].split(' ')[0]}")
     else:
         return render_template('home.html',mensagem="Acesso não permitido")

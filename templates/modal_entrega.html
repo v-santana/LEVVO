@@ -12,46 +12,46 @@
         <form method="POST">
           <div class="mb-3">
             <h6> Endereço coleta</h6>
-            <label for="inputEndereco" class="form-label">Localização</label>
-            <input type="text" class="form-control" name="enderecoColeta" id="inputEndereco">
+            <label for="inputEnderecoColeta" class="form-label">Localização</label>
+            <input type="text" class="form-control" name="enderecoColeta" id="inputEnderecoColeta" required>
           </div>
           <div class="mb-3">
             <label for="inputCepColeta" class="form-label">CEP</label>
-            <input type="text" onblur="pesquisacep(this.value);" name="cepColeta" class="form-control" maxlength="8" id="inputCepColeta" placeholder="">
+            <input type="text" onblur="pesquisacep_coleta(this.value);" name="cepColeta" class="form-control" maxlength="8" id="inputCepColeta" placeholder="" required>
           </div>
           <div class="mb-3">
             <label for="inputBairroColeta" class="form-label">Bairro</label>
-            <input type="text" name="bairroColeta" class="form-control" id="inputBairroColeta" placeholder="">
+            <input type="text" name="bairroColeta" class="form-control" id="inputBairroColeta" placeholder="" required>
           </div>
           <div class="mb-3">
             <label for="inputCidadeColeta" class="form-label">Cidade</label>
-            <input type="text" name="cidadeColeta" class="form-control" id="inputCidadeColeta" placeholder="">
+            <input type="text" name="cidadeColeta" class="form-control" id="inputCidadeColeta" placeholder="" required>
           </div>
           <div class="mb-3">
             <label for="inputUfColeta" class="form-label">UF</label>
-            <input type="text" name="ufColeta" class="form-control" maxlength="2" id="inputUfColeta" placeholder="">
+            <input type="text" name="ufColeta" class="form-control" maxlength="2" id="inputUfColeta" placeholder="" required>
           </div>
           <hr>
           <div class="mb-3">
             <h6> Endereço entrega</h6>
-            <label for="inputEnderecoColeta" class="form-label">Localização</label>
-            <input type="text" class="form-control" name="enderecoEntrega" id="inputEnderecoColeta">
+            <label for="inputEndereco" class="form-label">Localização</label>
+            <input type="text" class="form-control" name="enderecoEntrega" id="inputEndereco" required>
           </div>
           <div class="mb-3">
             <label for="inputCepEntrega" class="form-label">CEP</label>
-            <input type="text" onblur="pesquisacep(this.value);" name="cepEntrega" class="form-control" maxlength="8" id="inputCepEntrega" placeholder="">
+            <input type="text" onblur="pesquisacep(this.value);" name="cepEntrega" class="form-control" maxlength="8" id="inputCepEntrega" placeholder="" required>
           </div>
           <div class="mb-3">
             <label for="inputBairroEntrega" class="form-label">Bairro</label>
-            <input type="text" name="bairroEntrega" class="form-control" id="inputBairroEntrega" placeholder="">
+            <input type="text" name="bairroEntrega" class="form-control" id="inputBairroEntrega" placeholder="" required>
           </div>
           <div class="mb-3">
             <label for="inputCidadeEntrega" class="form-label">Cidade</label>
-            <input type="text" name="cidadeEntrega" class="form-control" id="inputCidadeEntrega" placeholder="">
+            <input type="text" name="cidadeEntrega" class="form-control" id="inputCidadeEntrega" placeholder="" required>
           </div>
           <div class="mb-3">
             <label for="inputUfEntrega" class="form-label">UF</label>
-            <input type="text" name="ufEntrega" class="form-control" maxlength="2" id="inputUfEntrega" placeholder="">
+            <input type="text" name="ufEntrega" class="form-control" maxlength="2" id="inputUfEntrega" placeholder="" required>
           </div>
         
 
@@ -75,9 +75,9 @@ function limpa_formulário_cep() {
         if (!("erro" in conteudo)) {
             //Atualiza os campos com os valores.
             document.getElementById('inputEndereco').value=(conteudo.logradouro);
-            document.getElementById('inputEndereco').value+=(" "+conteudo.bairro);
-            document.getElementById('inputEndereco').value+=("/ "+conteudo.localidade);
-            document.getElementById('inputEndereco').value+=(" - "+conteudo.uf);
+            document.getElementById('inputBairroEntrega').value=(conteudo.bairro);
+            document.getElementById('inputCidadeEntrega').value=(conteudo.localidade);
+            document.getElementById('inputUfEntrega').value=(conteudo.uf);
         } //end if.
         else {
             //CEP não Encontrado.
@@ -102,6 +102,9 @@ function limpa_formulário_cep() {
 
                 //Preenche os campos com "..." enquanto consulta webservice.
                 document.getElementById('inputEndereco').value="...";
+                document.getElementById('inputBairroEntrega').value="...";
+                document.getElementById('inputCidadeEntrega').value="...";
+                document.getElementById('inputUfEntrega').value="...";
 
                 //Cria um elemento javascript.
                 var script = document.createElement('script');
@@ -137,9 +140,9 @@ function limpa_formulário_cep_coleta() {
         if (!("erro" in conteudo)) {
             //Atualiza os campos com os valores.
             document.getElementById('inputEnderecoColeta').value=(conteudo.logradouro);
-            document.getElementById('inputEnderecoColeta').value+=(" "+conteudo.bairro);
-            document.getElementById('inputEnderecoColeta').value+=("/ "+conteudo.localidade);
-            document.getElementById('inputEnderecoColeta').value+=(" - "+conteudo.uf);
+            document.getElementById('inputBairroColeta').value=(conteudo.bairro);
+            document.getElementById('inputCidadeColeta').value=(conteudo.localidade);
+            document.getElementById('inputUfColeta').value=(conteudo.uf);
         } //end if.
         else {
             //CEP não Encontrado.

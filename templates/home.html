@@ -8,10 +8,12 @@
         <br/>
         <a type="button" class="btn" style="background-color: #FF5757; color: white; font-size: 12px;" href="/login" >Retornar à tela de login</a>
       </div>
-      <div class="item">
-        <a type="button" class="btn button-login form-control btn-danger mb-3 text-userpick button-home" style="max-width: 50rem;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Solicitar uma entrega</a>
-      </div>
-    </div>
+      {% if session['TIPO_USUARIO'] == 'CLIENTE'%}
+          <div class="item">
+            <a type="button" class="btn button-login form-control btn-danger mb-3 text-userpick button-home" style="max-width: 50rem;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Solicitar uma entrega</a>
+          </div>
+        </div>
+      {% endif %}
 {% include 'modal_entrega.html' %}
   </body>
 
