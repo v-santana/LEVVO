@@ -41,11 +41,11 @@ class Entrega(Base):
 class Endereco(Base):
    __tablename__ = 'tb_endereco'
    id = Column(Integer, primary_key=True)
-   rua = Column(String(200))
-   numero = Column(Integer)
-   complemento = Column(String(200))
+   endereco = Column(String(300))
+   bairro = Column(String(100))
+   uf = Column(String(2))
+   cidade = Column(String(100))
    cep = Column(String(10))
-   id_bairro = Column(Integer)
    
 
 #Realiza a criação das tabelas solicitadas
@@ -123,7 +123,6 @@ def editarEmailEntregador(id,novoEmail):
    db_session.commit()
    return entregador
 
-
 def editarSenhaEntregador(id,novaSenha):
    entregador = db_session.query(Entregador).filter(Entregador.id == id).one()
    entregador.senha = novaSenha
@@ -171,8 +170,8 @@ def editarEnderecoFinalEntrega(id,numero,complemento,cep,id_bairro):
 
 ############ ENDERECO #################
 
-def criarEndereco(rua,numero,complemento,cep,id_bairro):
-   endereco = Endereco(rua = rua,numero = numero,complemento = complemento,cep = cep,id_bairro = id_bairro)
+def criarEndereco(endereco,bairro,uf, cidade,cep):
+   endereco = Endereco(endereco=endereco,bairro=bairro,uf=uf, cidade=cidade,cep=cep)
    db_session.add(endereco)
    db_session.commit()
    return endereco
